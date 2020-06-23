@@ -1,0 +1,5 @@
+body {
+	background: url('https://img-pub01.visitshanghai.com.cn/rule-banner.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
