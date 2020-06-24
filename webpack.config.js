@@ -1,9 +1,14 @@
 let path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+// 自定义plugin
+const DonePlugin = require('./plugins/DonePlugin')
+const FilePlugin = require('./plugins/FilePlugin')
+const FileListPlugin = require('./plugins/FileListPlugin')
 module.exports = {
   mode: 'development',
-  entry: "./loader/index.js",
+  entry: "./example/entry.js",
   output: {
-    path: path.join(__dirname, "distLoader"),
+    path: path.join(__dirname, "dist1"),
     filename: "bundle.js"
   },
   /**
@@ -35,12 +40,10 @@ module.exports = {
   // }
 
 
-
-  // resolveLoader: {
-  //   modules: [path.join(__dirname, "./src/loaders"), "node_modules"]
-  // },
-  // plugins: [
-  //   new HtmlWebpackPlugin(),
-  //   new HotModuleReplacementPlugin()
-  // ]
+  plugins: [
+    new HtmlWebpackPlugin(),
+    new DonePlugin(),
+    new FilePlugin(),
+    new FileListPlugin()
+  ]
 };
