@@ -4,6 +4,12 @@
   "description": "",
   "author": "yobrave",
   "license": "MIT",
+  "private": true,
+  "scripts": {
+    "pre": "npx webpack -pre",
+    "prd": "npx webpack -prd",
+    "debug": "node --inspect --inspect-brk node_modules/webpack/bin/webpack.js"
+  },
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -17,6 +23,7 @@
   },
   "devDependencies": {
     "html-webpack-plugin": "^4.3.0",
-    "prettier": "^1.10.2"
+    "prettier": "^1.10.2",
+    "webpack-cli": "^3.3.12"
   }
 }

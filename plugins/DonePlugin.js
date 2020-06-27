@@ -1,7 +1,59 @@
 function MyPlugin() {}
 
 MyPlugin.prototype.apply = function(compiler) {
-  compiler.hooks.emit.tapAsync('MyPlugin', function(compilation, callback) {
+  compiler.hooks.emit.tapAsync('MyPlugin', (compilation, cb) => {
+    // console.log(stats);
+    // console.log(compilation, 'compiler');
+    // compilation.fileDependencies.forEach(item => {
+    //   console.log(compilation.assets[item].source(), 'source');
+    // })
+    // return
+    console.log(process.argv[2], 'process.argv');
+    console.log(compilation.fileDependencies, 'compilationParams');
+    // // compilation.assets[data].source()
+    // return
+    // console.log(compilation.assets, 'compilation.assets');
+    // return
+    Object.keys(compilation.assets).forEach((data)=> {
+      let content = compilation.assets[data].source() // 欲处理的文本
+      console.log(content, 'compilation.assets');
+    })
+
+    return
+    compilation.fileDependencies.forEach(item => {  // 拿到所有的资源文件
+
+      console.log(item, 'item');
+      return
+
+      if (item.includes('busi\\dengji\\common\\apis.js')) {
+        // console.log(item, 'item123')
+
+        let source = fs.readFileSync(item, 'utf8'),newSource = '', env = global.environment
+        let reg = /http:\/\/gate.uat.vshanghai.tech\/|https:\/\/gate.visitshanghai.net\/|https:\/\/gate.visitshanghai.com.cn\//g
+        console.log(env, 'env')
+        switch (env) {
+          case 'dev':
+            newSource = source.replace(reg, 'http://gate.uat.vshanghai.tech/')
+            break;
+          case 'pre':
+            newSource = source.replace(reg, 'https://gate.visitshanghai.net/')
+            break;
+          case 'prd':
+            newSource = source.replace(reg, 'https://gate.visitshanghai.com.cn/')
+            break;
+        }
+        console.log(newSource, 'newSource')
+        fs.writeFile(item, newSource, (err1) => { // 替换文件内容
+          if (err1) {
+            console.log(err1)
+          } else {
+            console.log('替换成功')
+            callback();
+          }
+        })
+      }
+    });
+
 
     // 检索每个（构建输出的）chunk：
     // compilation.chunks.forEach(function(chunk) {
@@ -20,10 +72,8 @@ MyPlugin.prototype.apply = function(compiler) {
     //     var source = compilation.assets[filename].source();
     //   });
     // });
-    console.log(compilation.fileDependencies, 'compilation');
-    console.log(compilation.assets, 'assets');
-
-    callback();
+    // callback();
+    cb()
   });
 };
 

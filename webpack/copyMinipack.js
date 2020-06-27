@@ -1,4 +1,3 @@
-/* eslint-disable */
 const fs = require('fs');
 const path = require('path');
 const babylon = require('babylon'); // 解析js语法，生产AST 语法树
@@ -66,7 +65,13 @@ function bundle(graph) {
   `;
   return result;
 }
-const graph = createGraph('./example/entry.js');
+const graph = createGraph('../example/entry.js');
 console.log(graph, 'graph');
 const result = bundle(graph);
 console.log(result, 'result');
+
+fs.mkdir('dist', (err) => {
+  if (!err) fs.writeFile('dist/main.js', result, (err1) => {
+    if (!err1) console.log("打包成功");
+  })
+})

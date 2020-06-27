@@ -1,0 +1,8 @@
+body {
+	with: 100vw;
+	height: 100vh;
+	background: url('https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2771824895,3725853166&fm=26&gp=0.jpg');
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: center;
+}

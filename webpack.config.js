@@ -1,21 +1,23 @@
 let path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 // 自定义plugin
-const DonePlugin = require('./plugins/DonePlugin')
-const FilePlugin = require('./plugins/FilePlugin')
-const FileListPlugin = require('./plugins/FileListPlugin')
+const HostUrlPlugin = require('./plugins/HostUrlPlugin')
+// const FilePlugin = require('./plugins/FilePlugin')
+// const FileListPlugin = require('./plugins/FileListPlugin')
 module.exports = {
   mode: 'development',
-  entry: "./example/entry.js",
+  entry: "./src/index.js",
   output: {
-    path: path.join(__dirname, "dist1"),
-    filename: "bundle.js"
+    path: path.join(__dirname, "dist"),
+    filename: '[name].[hash:8].js'
+    // publicPath: "https://img-pub01.visitshanghai.com.cn" // 文件前面加上域名
   },
   /**
    * loader默认会在node_modules查找，也可以指定其他的目录，来查找我们自定义的loader
    * */
   resolveLoader: {
-    modules: ['node_modules', path.resolve(__dirname, 'loader', 'loader')]
+    modules: ['node_modules', path.resolve(__dirname, 'loader')]
   },
   module: {
     rules: [
@@ -41,9 +43,10 @@ module.exports = {
 
 
   plugins: [
-    new HtmlWebpackPlugin(),
-    new DonePlugin(),
-    new FilePlugin(),
-    new FileListPlugin()
+    // new DonePlugin(),
+    new HostUrlPlugin,
+    // new FilePlugin(),
+    // new FileListPlugin()
+    new HtmlWebpackPlugin()
   ]
 };

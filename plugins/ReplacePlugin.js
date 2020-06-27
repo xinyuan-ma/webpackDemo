@@ -60,7 +60,7 @@ MyPlugin.prototype.apply = function(compiler) {
     // console.log(compilation.assets, 'assets');
     // let testHtml = fs.readFileSync('./test.html', 'utf8')
     // testHtml.replace(/<title>([\s\S]){1,}<\/title>/gm, '<title>二标题</title>')
-    // fs.writeFileSync('./src/test.html', testHtml, 'utf8')
+    // fs.writeFileSync('./webpack/test.html', testHtml, 'utf8')
 
 
   });
