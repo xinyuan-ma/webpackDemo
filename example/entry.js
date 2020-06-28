@@ -1,3 +1,7 @@
 import message from './message.js';
 
-console.log(message);
+let p = document.createElement('p')
+p.innerHTML = message
+document.body.appendChild(p);
+
+

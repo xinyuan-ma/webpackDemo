@@ -3,8 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // 自定义plugin
 const HostUrlPlugin = require('./plugins/HostUrlPlugin')
-// const FilePlugin = require('./plugins/FilePlugin')
-// const FileListPlugin = require('./plugins/FileListPlugin')
+const FileListPlugin = require('./plugins/FileListPlugin')
 module.exports = {
   mode: 'development',
   entry: "./src/index.js",
@@ -43,10 +42,9 @@ module.exports = {
 
 
   plugins: [
-    // new DonePlugin(),
     new HostUrlPlugin,
-    // new FilePlugin(),
-    // new FileListPlugin()
+    new FileListPlugin(),
+
     new HtmlWebpackPlugin()
   ]
 };

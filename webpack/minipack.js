@@ -40,7 +40,6 @@ let ID = 0;
 
 function createAsset(filename) {
   // 以字符串形式读取文件的内容.
-  // console.log(filename, 'filename');
   const content = fs.readFileSync(filename, 'utf-8');
 
 //   现在我们试图找出这个文件依赖于哪个文件. 我们可以通过查看其内容
@@ -106,11 +105,11 @@ function createAsset(filename) {
 function createGraph(entry) {
   // 首先解析整个文件.
   const mainAsset = createAsset(entry);
-
+  console.log(mainAsset, 'mainAsset');
 //   我们将使用`队列{queue}`来解析每个`资产{asset}`的依赖关系.
 //   我们正在定义一个只有 入口资产{entry asset} 的数组.
   const queue = [mainAsset];
-  // console.log(queue, 'queue');
+  console.log(queue, 'queue');
 // 我们使用一个`for ... of`循环遍历 队列.
 // 最初 这个队列 只有一个 资产,但是当我们迭代它时,我们会将额外的 新资产 推入 队列 中.
 // 这个循环将在 队列 为空时终止.
@@ -121,7 +120,7 @@ function createGraph(entry) {
 
     // 这是这个模块所在的目录.
     const dirname = path.dirname(asset.filename);
-
+    console.log(dirname, 'dirname');
     // 我们遍历其相关路径的列表
     asset.dependencies.forEach(relativePath => {
     // 我们的`createAsset()`函数需要一个绝对文件名.
@@ -129,7 +128,7 @@ function createGraph(entry) {
     // 这些路径是相对于导入他们的文件.
     // 我们可以通过将相对路径与父资源目录的路径连接,将相对路径转变为绝对路径.
       const absolutePath = path.join(dirname, relativePath);
-      // console.log(absolutePath, 'absolutePath');
+      console.log(absolutePath, 'absolutePath');
 
       // 解析资产,读取其内容并提取其依赖关系.
       const child = createAsset(absolutePath);
@@ -147,7 +146,7 @@ function createGraph(entry) {
 
 //   到这一步,队列 就是一个包含目标应用中 每个模块 的数组:
 //   这就是我们的表示图.
-//   console.log(queue, 'queueLast');
+  console.log(queue, 'queueLast');
   return queue;
 }
 
@@ -218,12 +217,11 @@ function bundle(graph) {
     })({${modules}})
   `;
 
-//   我们只需返回结果,欢呼!:)
+//   我们只需返回结果
   return result;
 }
 
-const graph = createGraph('./example/entry.js');
-console.log(graph, 'graph');
+const graph = createGraph('../example/entry.js');
 
 const result = bundle(graph);
 
