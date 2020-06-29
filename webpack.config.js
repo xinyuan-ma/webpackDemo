@@ -1,3 +1,4 @@
+// 使用npx 启动，npx 的教程http://www.ruanyifeng.com/blog/2019/02/npx.html
 let path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 

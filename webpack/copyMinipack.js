@@ -3,9 +3,11 @@ const path = require('path');
 const babylon = require('babylon'); // 解析js语法，生产AST 语法树, ast将js代码转化为一种JSON数据结构 ast 解析 https://astexplorer.net/ , ast教程 https://segmentfault.com/a/1190000017992387
 const traverse = require('babel-traverse').default; // babel-traverse是一个对ast进行遍历的工具, 对ast进行替换
 const {transformFromAst} = require('babel-core'); // 将es6 es7 等高级的语法转化为es5的语法
+
+// 每一个js文件，对应一个id
 let ID = 0;
 
-// 该函数将接受 文件路径 ,读取内容并提取它的依赖关系.
+// 该函数将接收 文件路径 ,读取内容并提取它的依赖关系.
 function createAsset(filename) {
   const content = fs.readFileSync(filename, 'utf-8'); // filename 可以是相对路径或绝对路径
   const ast = babylon.parse(content, {
@@ -17,6 +19,7 @@ function createAsset(filename) {
         dependencies.push(node.source.value);
     },
   });
+  console.log(dependencies);
   const id = ID++;
   const {code} = transformFromAst(ast, null, {
     presets: ['env'],
@@ -39,6 +42,7 @@ function createGraph(entry) {
     const dirname = path.dirname(asset.filename);
     asset.dependencies.forEach(relativePath => {
       const absolutePath = path.join(dirname, relativePath);
+      console.log(absolutePath, 'absolutePath');
       const child = createAsset(absolutePath);
       asset.mapping[relativePath] = child.id;
       queue.push(child);
@@ -47,7 +51,7 @@ function createGraph(entry) {
   return queue;
 }
 
-// 手动实现了require 方法，找到导出变量的对应关系
+// 实现了require 方法，找到导出变量的引用逻辑
 function bundle(graph) {
   let modules = '';
   graph.forEach(mod => {
