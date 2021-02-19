@@ -2,7 +2,7 @@
   "name": "minipack-explain",
   "version": "1.0.0",
   "description": "",
-  "author": "yobrave",
+  "author": "webpack",
   "license": "MIT",
   "private": true,
   "scripts": {
