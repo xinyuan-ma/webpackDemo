@@ -14,7 +14,7 @@ module.exports = {
     // publicPath: "https://img-pub01.visitshanghai.com.cn" // 文件前面加上域名
   },
   /**
-   * loader默认会在node_modules查找，也可以指定其他的目录，来查找我们自定义的loader
+   * loader默认会在node_modules查找，也可以添加指定的目录，来查找我们自定义的loader
    * */
   resolveLoader: {
     modules: ['node_modules', path.resolve(__dirname, 'loader')]
@@ -23,7 +23,7 @@ module.exports = {
     rules: [
       {
         test: /\.demo$/,
-        use: [  'style-loader', 'demo-loader']
+        use: [  'style-loader', 'demo-loader', 'async-loader']
       }]
   },
 

@@ -1,4 +1,5 @@
 function loader (source) {
+  console.log("style-loader");
   let style = `
     let style = document.createElement('style');
     style.setAttribute("type", "text/css"); 
@@ -7,5 +8,7 @@ function loader (source) {
   return style
 }
 
-
 module.exports = loader
+module.exports.pitch = function() {
+  console.log("style-pitch");
+}
